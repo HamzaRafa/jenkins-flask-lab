@@ -22,7 +22,8 @@ pipeline {
 
         stage('Test') {
             steps {
-                sh 'docker run --rm ${IMAGE_NAME}:${BUILD_NUMBER} pytest -v'
+                // PYTHONPATH=. ensures pytest finds app.py in the container
+                sh 'docker run --rm -e PYTHONPATH=. ${IMAGE_NAME}:${BUILD_NUMBER} pytest -v'
             }
         }
 
